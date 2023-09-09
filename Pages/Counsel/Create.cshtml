@@ -1,0 +1,107 @@
+﻿@page
+@model Consultation.Pages.Counsel.CreateModel
+
+@{
+	ViewData["Title"] = "Create";
+	var prices = (List<ProductPrice>)ViewData["Prices"];
+	int counter = 1;
+}
+
+<h1>Create</h1>
+<hr />
+<div class="row">
+    <div class="col-12">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Product.Title" class="control-label"></label>
+                <input asp-for="Product.Title" class="form-control" />
+                <span asp-validation-for="Product.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Description" class="control-label"></label>
+                <input asp-for="Product.Description" class="form-control" />
+                <span asp-validation-for="Product.Description" class="text-danger"></span>
+            </div>
+			 <div class="form-group">
+                <label asp-for="Product.ProductPrice" class="control-label"></label>
+                <input asp-for="Product.ProductPrice" class="form-control" type="number" />
+                <span asp-validation-for="Product.ProductPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">  
+				@foreach (var item in prices)
+				{
+					if(counter==1)
+					{
+					<input id="a_@counter" type="radio"value="@item.Id" asp-for="Product.PriceId" class="radioInput" checked>		
+					}
+					else
+					{
+					<input id="a_@counter" type="radio"value="@item.Id" asp-for="Product.PriceId" class="radioInput">		
+					}
+				<label for="a_@counter"><span></span>@item.Title ? costs @item.Price L.E</label>
+				counter++;
+				}
+				<!--
+	<input id="a" type="radio" name="hopping" value="a" checked class="radioInput">
+	<label for="a"><span></span>Weekly ? costs 5 L.E</label>
+	<input id="b" type="radio" name="hopping" value="b" class="radioInput">
+	<label for="b"><span></span>Monthly ? costs 15 L.E</label>
+	<input id="c" type="radio" name="hopping" value="c" class="radioInput">
+	<label for="c"><span></span>Yearly  ? costs 150 L.E</label>
+	-->
+	<div class="worm">
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+		<div class="worm__segment"></div>
+	</div>
+	 </div>
+            <div class="form-group my-4">
+                <label>
+                    <input class="form-check-input slideTwo" asp-for="Product.IsAvailable" /> 
+					@Html.DisplayNameFor(model => model.Product.IsAvailable)
+                </label>
+            </div>
+       
+            <div class="form-group">
+                <button type="submit" title="Create" class="btn btn-success" >
+					Create <i data-feather="plus-circle"></i></button>
+				<a asp-page="IndexById" class="btn btn-secondary">Back to List
+				<i class="fa fa-undo"></i>
+				</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

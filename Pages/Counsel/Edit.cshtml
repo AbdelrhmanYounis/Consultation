@@ -1,0 +1,57 @@
+﻿@page
+@model Consultation.Pages.Counsel.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    var prices = (List<ProductPrice>)ViewData["Prices"];
+	int counter = 1;
+}
+
+<h1>Edit</h1>
+<hr />
+<div class="row">
+<div class="col-12">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Product.Id" />
+            <input type="hidden" asp-for="Product.order" />
+            <input type="hidden" asp-for="Product.PriceId" />
+            <input type="hidden" asp-for="Product.Created" />
+            <div class="form-group">
+                <label asp-for="Product.Title" class="control-label"></label>
+                <input asp-for="Product.Title" class="form-control" />
+                <span asp-validation-for="Product.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Description" class="control-label"></label>
+                <input asp-for="Product.Description" class="form-control" />
+                <span asp-validation-for="Product.Description" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Product.ProductPrice" class="control-label"></label>
+                <input asp-for="Product.ProductPrice" class="form-control" type="number"/>
+                <span asp-validation-for="Product.ProductPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+					<input id="a" type="radio" value="@Model.Product.PriceId" class="radioInput" checked>		
+				<label for="a"><span></span>@Model.Product.Price.Title ? costs @Model.Product.Price.Price L.E</label>
+            </div>
+            
+            <div class="form-group my-4">
+                <label class="form-check-label">
+                    <input class="form-check-input slideTwo" asp-for="Product.IsAvailable" /> @Html.DisplayNameFor(model => model.Product.IsAvailable)
+                </label>
+            </div>
+            <div class="form-group">
+                <button type="submit" title="Edit" class="btn btn-primary" >
+					Edit <i data-feather="edit"></i>  </button>
+                <a asp-page="IndexById" class="btn btn-secondary">Back to List
+				<i class="fa fa-undo"></i>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

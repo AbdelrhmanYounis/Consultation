@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Consultation</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+      integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Consultation.styles.css" asp-append-version="true" />
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+   <!-- <a  id="toggle"><span></span></a>-->
+   <a id="toggle" onclick="toggleMenu()">
+       <i data-feather="menu" id="openMenu" style="visibility:hidden"></i>
+       <i data-feather="x-square" id="closeMenu" class="text-white bg-danger"></i>    
+   </a>
+  <nav class="navbar"  id="menu" style="z-index:1000;">
+      
+  <ul class="navbar__menu">
+    <li class="navbar__item">
+      <a  asp-area="" asp-page="/Index" class="navbar__link"><i data-feather="home"></i><span>Home</span></a>
+    </li>
+     <partial name="_LoginPartial" />
+    <li class="navbar__item">
+      <a asp-area="" asp-page="/Privacy" class="navbar__link"><i data-feather="award"></i><span>About</span></a>        
+    </li>
+    
+   
+  </ul>
+</nav>
+
+<!-- 
+    
+    <div style="background-color:#5161ce">
+    <header class="container">
+      
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Consultation</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand-custom navbar-mainbg">
+  <a class="navbar-brand navbar-logo" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" 
+  aria-label="Toggle navigation" >
+    <i class="fa fa-bars text-white" ></i>
+  </button>
+  
+</nav>
+
+    </header>
+    </div>
+    -->
+    <div class="container">
+        <main role="main" class="pb-3" style="align-content:center">
+            @RenderBody()
+        </main>
+    </div>
+    <!--
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - Consultation - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+    -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <script>
+        feather.replace();
+
+        const box = document.getElementById('menu');
+  const openMenu=document.getElementById('openMenu');
+  const closeMenu=document.getElementById('closeMenu');
+
+ function toggleMenu(){
+   
+  if(box.style.visibility == 'hidden')
+  {
+        box.style.visibility = 'visible';
+          closeMenu.style.visibility = 'visible';
+          openMenu.style.visibility = 'hidden';
+  }
+  else
+  {
+        box.style.visibility ='hidden';
+        closeMenu.style.visibility = 'hidden';
+        openMenu.style.visibility = 'visible';        
+  }
+};
+        </script>
+           @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

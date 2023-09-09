@@ -1,0 +1,86 @@
+﻿@page "/Counsel/Index"
+@model Consultation.Pages.Counsel.IndexModel
+
+@{
+    ViewData["Title"] = "take Counsel";
+    var user = UserManager.GetUserAsync(User).Result;
+    string roleName =(user!=null)? UserManager.GetRolesAsync(user).Result.FirstOrDefault():"";
+}
+
+<h1>counsels</h1>
+
+    @foreach (var item in Model.Product) {
+    <div class="card">
+         <h6 class="col-6">
+    @Html.DisplayFor(modelItem => item.ProductPrice)
+    L.E
+    </h6>
+     @if (item.Owner.ProfilePicture != null)
+                           {            
+                  <img class="rounded-circle" style="width:80px;height:80px" src="data:image/*;base64,
+                                @(Convert.ToBase64String(item.Owner.ProfilePicture))" alt="">
+                        }
+                        else{
+                            <img class="rounded-circle" src="~/Images/user.png" alt="" style="width:80px;height:80px">
+                        }
+    <h4>
+    @Html.DisplayFor(modelItem => item.Title)
+    </h4>
+     <div style="height:50px;"> By : 
+         <strong>
+    @Html.DisplayFor(modelItem => item.Owner.FirstName)
+    @Html.DisplayFor(modelItem => item.Owner.LastName)
+    </strong>
+    </div>
+    <p>
+    @Html.DisplayFor(modelItem => item.Description)
+    </p>   
+    @if (roleName.Equals("User"))
+    {
+            if(item.IsBlocked)
+            {
+               <input title="Blocked"  type="button" value="Blocked" class="btn btn-danger" disabled/>                                    
+            }
+            else if(! item.IsAvailable)
+            {
+               <input title="Owner Not Available"  type="button" value="Not Available" class="btn btn-warning" disabled/>                    
+            }
+            else
+            {
+              <a  class="link" asp-page-handler="CheckoutProduct" asp-route-id="@item.Id">Agree</a>
+            }
+        }
+    else
+    {
+        if(item.IsBlocked)
+        {
+        <button title="unblock"  class="btn btn-info  col-3 mb-0" onclick="Block(@item.Id)" ><i class="fa fa-unlock-alt"></i></button>
+        }
+        else
+        {
+        <button title="block" class="btn btn-warning  col-3" onclick="Block(@item.Id)" ><i class="fa fa-lock"></i></button>
+        }
+        <a title="delete" class="btn btn-danger  col-3" asp-page="./Delete" asp-route-id="@item.Id"><i data-feather="trash-2"></i></a>
+
+    }
+    </div>
+    
+    }
+  
+@section Scripts
+{
+    <script type="text/javascript">
+    function Block(id){
+            $.ajax({
+                type: "GET",
+                url: "/Counsel/Index?handler=BlockProduct",
+                data:{"id": id},
+                dataType: "json",
+                success: function (msg) {
+                    console.log(msg);
+                    window.location.href = "/Counsel/Index";
+                }
+            });
+        };
+    </script>
+}

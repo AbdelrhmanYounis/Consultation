@@ -1,0 +1,46 @@
+﻿@page "/Counsel/IndexById"
+@model Consultation.Pages.Counsel.IndexByIdModel
+
+@{
+    ViewData["Title"] = "take Counsel";
+    var user = UserManager.GetUserAsync(User).Result;
+    string roleName =(user!=null)? UserManager.GetRolesAsync(user).Result.FirstOrDefault():"";
+}
+
+<h1>owned</h1>
+
+<p>
+    <a asp-page="Create" class="link px-4">Create New <i data-feather="plus-circle"></i></a>
+</p>
+    @foreach (var item in Model.Product) {
+    <div class="card">
+         <h6 class="col-6">
+    @Html.DisplayFor(modelItem => item.ProductPrice)
+    L.E
+    </h6>
+     @if (item.Owner.ProfilePicture != null)
+                           {            
+                  <img class="rounded-circle" style="width:80px;height:80px" src="data:image/*;base64,
+                                @(Convert.ToBase64String(item.Owner.ProfilePicture))" alt="">
+                        }
+                        else{
+                            <img class="rounded-circle" src="~/Images/user.png" alt="" style="width:80px;height:80px">
+                        }
+    <h4>
+    @Html.DisplayFor(modelItem => item.Title)
+    </h4>
+     <div style="height:50px;"> By : 
+         <strong>
+    @Html.DisplayFor(modelItem => item.Owner.FirstName)
+    @Html.DisplayFor(modelItem => item.Owner.LastName)
+    </strong>
+    </div>
+    <p>
+    @Html.DisplayFor(modelItem => item.Description)
+    </p>   
+   <a title="edit" asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-info"><i data-feather="edit"></i></a>
+               <a title="delete" class="btn btn-danger  col-3" asp-page="./Delete" asp-route-id="@item.Id">
+                   <i data-feather="trash-2"></i></a>
+    </div>
+    
+    }
